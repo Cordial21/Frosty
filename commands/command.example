@@ -1,0 +1,20 @@
+//import, and require things
+
+exports.run = async (client, message, args) => { 
+    //code
+};
+
+exports.conf = {
+  enabled: true, //boolean
+  guildOnly: true, //boolean
+  aliases: [], //must be in Array
+  permLevel: "User", //look at config.js
+};
+
+exports.help = {
+  name: "",
+  description: "",
+  aliases: [],
+  usage: "cmd",
+  category: "", //System, Misc etc.
+};
