@@ -1,4 +1,5 @@
 const Enmap = require('Enmap');
+const db = require("quick.db");
 
 // The MESSAGE event runs anytime a message is received
 // Note that due to the binding of client to every event, every event
@@ -70,21 +71,14 @@ module.exports = async (client, message) => {
   client.logger.cmd(`[CMD] ${client.config.permLevels.find(l => l.level === level).name} ${message.author.username} (${message.author.id}) ran command ${cmd.help.name}`);
   cmd.run(client, message, args, level);
 
-    if (message.guild) {
-      const key = `${message.guild.id}-${message.author.id}`;
+    if (!message.channel.type == "DM") {
+      const user = message.author.id;
+      const account = economy.get(`money_${user}`);
 
-      client.currency.ensure(key, {
-        user: message.author.id,
-        guild: message.guild.id,
-        currency: 1,
-        level: 0
-      });
-      client.currency.inc(key, "currency");
+      if (!account) return
 
-      const curLevel = Math.floor(0.01 * Math.sqrt(client.currency.get(key, "currency")));
-      if(client.currency.get(key, "level") < curLevel) {
-        message.reply(`You leveled up to level **${curLevel}**!`)
-        client.currency.set(key, curLevel, "level");
+      economy.add(`money_${user}.balance`, 1);
+      economy.add(`bank_${user}.balance`, 0)
+
       }
     }
-  }

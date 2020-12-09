@@ -14,7 +14,7 @@ const client = new Discord.Client({
   }
 });
 
-
+const economy = new db.table('economy');
 
 client.config = config
 

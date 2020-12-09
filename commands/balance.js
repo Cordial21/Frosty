@@ -1,4 +1,6 @@
 const Enmap = require('Enmap');
+const db = require("quick.db");
+const economy = new db.table('economy');
 //const config = require("./config.js")
 
 exports.run = async (client, message) => { 
@@ -7,11 +9,14 @@ exports.run = async (client, message) => {
   //const curName = client.config.curName;
   
   const user = message.mentions.members.first() || message.author;
-  const bal = client.currency.get(key, "currency");
-  const lev = client.currency.get(key, "level");
+  const account = economy.get(`money_${user.id}`);
 
+  if(account) {
+    const bal = economy.get(`money_${user.id}.balance`);
+    const bankbal = economy.get(`bank_${user.id}.balance`)
+     message.channel.send(`@${user.tag} currently has ${bal} Frostie(s) in their hand, and has ${bankbal} safe!`);
+  } else return message.reply("That user does not have an account!")
 
-  return message.reply(`You currently have ${bal} Frostie(s), and you are at level ${lev}!!`);
 };
 
 exports.conf = {

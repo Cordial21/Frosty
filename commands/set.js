@@ -1,16 +1,16 @@
 const Enmap = require("Enmap");
+const db = require("quick.db")
+const economy = new db.table('economy')
 
 exports.run = async (client, message, args, args1) => { 
     const target = message.mentions.members.first();
-    const amount = args1;
+    const account = economy.get(`money_${target.id}`);
+    const amount = args[1];
 
-    if(target === undefined) {
-    const key = `${message.guild.id}-${target.id}`;
-
+    if(!account) {return message.reply("You did not specify someone, or that member does not have an account!")}
         if (isNaN(amount)) return message.reply("You did not specify an amount!");
-         client.currency.set(key, "currency");
-         message.channel.send(`Set ${target.tag}'s amount to ${amount}!`)
-        } else return message.reply("You did not specify someone!")
+         economy.set(`money_${target.id}.balance`, amount)
+         message.channel.send(`Set ${target}'s amount to ${amount}!`)
 };
 
 exports.conf = {
