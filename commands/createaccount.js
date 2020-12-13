@@ -1,5 +1,5 @@
 const db = require("quick.db");
-const economy = new db.table('economy')
+const economy = new db.table('economy');
 
 exports.run = (client, message) => {
 const user = message.author.id;

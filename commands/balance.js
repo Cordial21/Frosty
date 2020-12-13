@@ -13,8 +13,10 @@ exports.run = async (client, message) => {
 
   if(account) {
     const bal = economy.get(`money_${user.id}.balance`);
-    const bankbal = economy.get(`bank_${user.id}.balance`)
-     message.channel.send(`@${user.tag} currently has ${bal} Frostie(s) in their hand, and has ${bankbal} safe!`);
+    const bankbal = economy.get(`bank_${user.id}.balance`);
+    bal.toLocaleString('en');
+    bankbal.toLocaleString('en');
+     message.channel.send(`${user.username} currently has ${bal} Frostie(s) in their hand, and has ${bankbal} safe!`);
   } else return message.reply("That user does not have an account!")
 
 };
