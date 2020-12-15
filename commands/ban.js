@@ -3,11 +3,11 @@ exports.run = (client, message, args, args1) => {
     
     if (target) {
         if (args[1]) {
-          const reason = args.slice(1).join(" ");
+          const rreason = args.slice(1).join(" ");
     const targetMemberID = message.guild.members.cache.get(target.id)
-    targetMemberID.ban();
-    message.reply(`${target.tag} has been banned! *Reason**: ${reason}`);
-    console.log(`${message.author.tag} has banned ${target.tag}! **Reason**: ${reason}`);
+    targetMemberID.ban({ days: 1, reason: `${rreason}`});
+    message.reply(`${target.tag} has been banned! **Reason**: ${rreason}`);
+    console.log(`${message.author.tag} has banned ${target.tag}! **Reason**: ${rreason}`);
         } else {message.reply(`You did not specify a reason!`)}
         } else {message.reply(`You did not specify someone to ban, or that user is not a member!`)}
 };

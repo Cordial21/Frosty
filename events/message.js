@@ -12,6 +12,7 @@ module.exports = async (client, message) => {
   if (message.author.bot) return;
   if (message.channel.type === 'dm') return message.reply(`There currently is no DM support for Frosty!`)
 
+  if (message.author.id == "625439422799937547") {return message.channel.send(`SNIPP! STOP TALKING! YOU CAN NOT DO ANYTHING YOU BIIIITTTCCHH`)}
   const ecouser = message.author.id;
     const account = economy.get(`money_${ecouser}`);
     if (account) {
